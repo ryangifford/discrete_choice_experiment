@@ -1,0 +1,145 @@
+---
+title: "Optimal Design"
+author: "Ryan Gifford"
+date: "`r format(Sys.time(), '%B %d, %Y')`"
+output:
+  html_document:  
+    keep_md: true
+    toc: true
+    toc_float: true
+    code_folding: hide
+    fig_height: 6
+    fig_width: 12
+    fig_align: 'center'
+---
+
+```{r, echo=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
+```
+
+```{r load_libraries, include=FALSE}
+# Use this R-Chunk to load all your libraries!
+#install.packages("tidyverse") # run this line once in console to get package
+library(tidyverse)
+library(AlgDesign)
+library(pander)
+library(knitr)
+library(xtable)
+library(kableExtra)
+```
+
+https://www.r-bloggers.com/2009/11/design-of-experiments-%e2%80%93-optimal-designs/
+
+## R-Bloggers Example
+```{r}
+
+cand.list <-  expand.grid(
+  Factor1 = c("A", "B", "C", "D"),
+  Factor2 = c("I", "II", "III"),
+  Factor3 = c("Low", "High"),
+  Factor4 = c("Yes", "No")
+  )
+
+
+set.seed(69)
+
+output1 <- optFederov( ~ ., data = cand.list, nTrials = 13)
+
+output1$design
+```
+
+
+***************************
+
+## Bloomington Bike Paths
+
+### Normal Expansion Set
+```{r}
+normal_expansion <-  expand.grid(
+  Miles = c(3, 6, 7),
+  Access = c(2, 5, 9),
+  Donation = c(5, 14, 8)
+  )
+
+
+
+set.seed(69)
+
+output2 <- optFederov( ~ ., data = normal_expansion, nTrials = 16)
+
+row.names(output2$design) <- NULL
+
+
+output2$design
+
+
+```
+
+*********************************************
+
+### Bloomington Expansion Set
+```{r}
+bloom_expansion <-  expand.grid(
+  Miles = c(6, 2, 3),
+  Access = c(5, 9, 2),
+  Donation = c(5, 14, 8)
+  )
+
+
+
+set.seed(69)
+
+output3 <- optFederov( ~ ., data = bloom_expansion, nTrials = 16)
+
+
+row.names(output3$design) <- NULL
+
+output3$design
+
+```
+
+*********************************************
+
+
+## Possible Rexburg Sets
+
+### Teton River Trail
+
+```{r}
+
+teton <-  expand.grid(
+  Surface = c("Paved", "Gravel"),
+  Location = c("Walters Pond (.68 miles)", "Teton Lakes (.58 miles)", "Barney Dairy Rd (.37 miles)" ),
+  Cost = c(20, 35, 80)
+  )
+
+
+set.seed(69)
+
+teton_output <- optFederov( ~ ., data = teton, nTrials = 6)
+
+teton_output$design
+
+
+```
+
+### Railroad Trail...
+
+```{r}
+
+rail <-  expand.grid(
+  Surface = c("Paved", "Gravel"),
+  Location = c("Poleline to 7th S (1.1 miles)", "7th S to 2nd N (1.4 miles)", "2nd N to 2nd E (.9 miles)" ),
+  Cost = c(60, 75, 45)
+  )
+
+
+set.seed(69)
+
+rail_output <- optFederov( ~ ., data = rail, nTrials = 6)
+
+rail_output$design
+
+
+```
+

@@ -1,0 +1,219 @@
+---
+title: "Optimal Design"
+author: "Ryan Gifford"
+date: "`r format(Sys.time(), '%B %d, %Y')`"
+output:
+  html_document:  
+    keep_md: true
+    toc: true
+    toc_float: true
+    code_folding: hide
+    fig_height: 6
+    fig_width: 12
+    fig_align: 'center'
+---
+
+```{r, echo=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
+```
+
+```{r load_libraries, include=FALSE}
+# Use this R-Chunk to load all your libraries!
+#install.packages("tidyverse") # run this line once in console to get package
+library(tidyverse)
+library(AlgDesign)
+library(pander)
+library(knitr)
+library(xtable)
+library(kableExtra)
+library(choiceDes)
+```
+
+https://www.r-bloggers.com/2009/11/design-of-experiments-%e2%80%93-optimal-designs/
+
+
+
+*********************************************
+
+
+## Teton River Trail
+
+### 3 surface levels
+
+#### (criterion = "D")
+
+```{r}
+
+teton <-  expand.grid(
+  Surface = c("Paved", "Gravel", "Dirt"),
+  Location = c("Walters Pond (.68 miles)", "Teton Lakes (.58 miles)", "Barney Dairy Rd (.37 miles)" ),
+  Cost = c("20", "35", "80")
+  ) # Creating the choice sets
+
+
+#teton$Cost <- sample(teton$Cost) # randomizing the columns
+
+set.seed(69)
+
+teton_output <- optFederov(~., data = teton,  criterion = "D" )
+
+pander(teton_output)
+
+
+```
+
+
+*******************************
+
+#### (nTrials = 9)
+```{r}
+
+teton2 <-  expand.grid(
+  Surface = c("Paved", "Gravel", "Dirt"),
+  Location = c("Walters Pond (.68 miles)", "Teton Lakes (.58 miles)", "Barney Dairy Rd (.37 miles)" ),
+  Cost = c("20", "35", "80")
+  ) # Creating the choice sets
+
+
+#teton$Cost <- sample(teton$Cost) # randomizing the columns
+
+set.seed(69)
+
+teton_output2 <- optFederov(~., data = teton2,  criterion = "D" , nTrials = 9)
+
+pander(teton_output2)
+
+
+```
+
+*******************************
+
+#### (nTrials = 7)
+```{r}
+
+teton3 <-  expand.grid(
+  Surface = c("Paved", "Gravel", "Dirt"),
+  Location = c("Walters Pond (.68 miles)", "Teton Lakes (.58 miles)", "Barney Dairy Rd (.37 miles)" ),
+  Cost = c("20", "35", "80")
+  ) # Creating the choice sets
+
+
+#teton$Cost <- sample(teton$Cost) # randomizing the columns
+
+set.seed(69)
+
+teton_output3 <- optFederov(~., data = teton3,  criterion = "D" , nTrials = 7)
+
+pander(teton_output3)
+
+
+```
+
+
+*******************************
+### 2 surface levels
+
+#### (criterion = "D")
+```{r}
+
+teton4 <-  expand.grid(
+  Surface = c("Paved", "Gravel"),
+  Location = c("Walters Pond (.68 miles)", "Teton Lakes (.58 miles)", "Barney Dairy Rd (.37 miles)" ),
+  Cost = c("20", "35", "80")
+  ) # Creating the choice sets
+
+
+#teton$Cost <- sample(teton$Cost) # randomizing the columns
+
+set.seed(69)
+
+teton_output4 <- optFederov(~., data = teton4,  criterion = "D")
+
+pander(teton_output4)
+
+
+```
+
+***********************************
+
+#### (nTrials = 6)
+
+```{r}
+
+teton5 <-  expand.grid(
+  Surface = c("Paved", "Gravel"),
+  Location = c("Walters Pond (.68 miles)", "Teton Lakes (.58 miles)", "Barney Dairy Rd (.37 miles)" ),
+  Cost = c("20", "35", "80")
+  ) # Creating the choice sets
+
+
+#teton$Cost <- sample(teton$Cost) # randomizing the columns
+
+set.seed(69)
+
+teton_output5 <- optFederov(~., data = teton5,  criterion = "D", nTrials = 6)
+
+pander(teton_output5)
+
+
+```
+
+#### (nTrials = 9)
+```{r}
+
+teton6 <-  expand.grid(
+  Surface = c("Paved", "Gravel"),
+  Location = c("Walters Pond (.68 miles)", "Teton Lakes (.58 miles)", "Barney Dairy Rd (.37 miles)" ),
+  Cost = c("20", "35", "80")
+  ) # Creating the choice sets
+
+
+#teton$Cost <- sample(teton$Cost) # randomizing the columns
+
+set.seed(69)
+
+teton_output6 <- optFederov(~., data = teton6,  criterion = "D", nTrials = 9)
+
+pander(teton_output6)
+
+
+```
+
+
+### Railroad Trail...
+
+```{r, include=FALSE}
+
+rail <-  expand.grid(
+  Surface = c("Paved", "Gravel", "Dirt"),
+  Location = c("Poleline to 7th S (1.1 miles)", "7th S to 2nd N (1.4 miles)", "2nd N to 2nd E (.9 miles)" ),
+  Cost = c("60", "75", "45")
+  )
+
+
+set.seed(69)
+
+rail_output <- optFederov( ~ ., data = rail, criterion = "D", nTrials = 7)
+
+rail_output
+
+
+```
+
+
+
+**************************
+
+# january 4th 
+
+```{r}
+
+levs <- list(c(3,3,3), c(3,3,3))
+
+dcm.design(levs,6,2,2)
+
+
+?dcm.design
+?optBlock
+
+```

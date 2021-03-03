@@ -1589,118 +1589,13 @@ div.tocify {
 
 
 <p><a href="https://www.r-bloggers.com/2009/11/design-of-experiments-%e2%80%93-optimal-designs/" class="uri">https://www.r-bloggers.com/2009/11/design-of-experiments-%e2%80%93-optimal-designs/</a></p>
-<div id="r-bloggers-example" class="section level2">
-<h2>R-Bloggers Example</h2>
-<pre class="r"><code>cand.list &lt;-  expand.grid(
-  Factor1 = c(&quot;A&quot;, &quot;B&quot;, &quot;C&quot;, &quot;D&quot;),
-  Factor2 = c(&quot;I&quot;, &quot;II&quot;, &quot;III&quot;),
-  Factor3 = c(&quot;Low&quot;, &quot;High&quot;),
-  Factor4 = c(&quot;Yes&quot;, &quot;No&quot;)
-  )
-
-
-set.seed(69)
-
-output1 &lt;- optFederov( ~ ., data = cand.list, nTrials = 13)
-
-output1$design</code></pre>
-<pre><code>##    Factor1 Factor2 Factor3 Factor4
-## 4        D       I     Low     Yes
-## 7        C      II     Low     Yes
-## 9        A     III     Low     Yes
-## 14       B       I    High     Yes
-## 20       D      II    High     Yes
-## 22       B     III    High     Yes
-## 25       A       I     Low      No
-## 27       C       I     Low      No
-## 30       B      II     Low      No
-## 36       D     III     Low      No
-## 40       D       I    High      No
-## 41       A      II    High      No
-## 47       C     III    High      No</code></pre>
 <hr />
-</div>
-<div id="bloomington-bike-paths" class="section level2">
-<h2>Bloomington Bike Paths</h2>
-<div id="normal-expansion-set" class="section level3">
-<h3>Normal Expansion Set</h3>
-<pre class="r"><code>normal_expansion &lt;-  expand.grid(
-  Miles = c(3, 6, 7),
-  Access = c(2, 5, 9),
-  Donation = c(5, 14, 8)
-  )
-
-
-
-set.seed(69)
-
-output2 &lt;- optFederov( ~ ., data = normal_expansion, nTrials = 16)
-
-row.names(output2$design) &lt;- NULL
-
-
-output2$design</code></pre>
-<pre><code>##    Miles Access Donation
-## 1      3      2        5
-## 2      6      2        5
-## 3      7      2        5
-## 4      3      9        5
-## 5      6      9        5
-## 6      7      9        5
-## 7      3      2       14
-## 8      6      2       14
-## 9      7      2       14
-## 10     3      5       14
-## 11     3      9       14
-## 12     6      9       14
-## 13     7      9       14
-## 14     3      2        8
-## 15     7      2        8
-## 16     3      9        8</code></pre>
-<hr />
-</div>
-<div id="bloomington-expansion-set" class="section level3">
-<h3>Bloomington Expansion Set</h3>
-<pre class="r"><code>bloom_expansion &lt;-  expand.grid(
-  Miles = c(6, 2, 3),
-  Access = c(5, 9, 2),
-  Donation = c(5, 14, 8)
-  )
-
-
-
-set.seed(69)
-
-output3 &lt;- optFederov( ~ ., data = bloom_expansion, nTrials = 16)
-
-
-row.names(output3$design) &lt;- NULL
-
-output3$design</code></pre>
-<pre><code>##    Miles Access Donation
-## 1      6      9        5
-## 2      2      9        5
-## 3      3      9        5
-## 4      6      2        5
-## 5      2      2        5
-## 6      3      2        5
-## 7      6      5       14
-## 8      6      9       14
-## 9      2      9       14
-## 10     3      9       14
-## 11     6      2       14
-## 12     2      2       14
-## 13     3      2       14
-## 14     6      9        8
-## 15     6      2        8
-## 16     2      2        8</code></pre>
-<hr />
-</div>
-</div>
-<div id="possible-rexburg-sets" class="section level2">
-<h2>Possible Rexburg Sets</h2>
-<div id="teton-river-trail" class="section level3">
-<h3>Teton River Trail</h3>
+<div id="teton-river-trail" class="section level2">
+<h2>Teton River Trail</h2>
+<div id="surface-levels" class="section level3">
+<h3>3 surface levels</h3>
+<div id="criterion-d" class="section level4">
+<h4>(criterion = “D”)</h4>
 <pre class="r"><code>teton &lt;-  expand.grid(
   Surface = c(&quot;Paved&quot;, &quot;Gravel&quot;, &quot;Dirt&quot;),
   Location = c(&quot;Walters Pond (.68 miles)&quot;, &quot;Teton Lakes (.58 miles)&quot;, &quot;Barney Dairy Rd (.37 miles)&quot; ),
@@ -1712,68 +1607,591 @@ output3$design</code></pre>
 
 set.seed(69)
 
-teton_output &lt;- optFederov(~., data = teton,  criterion = &quot;D&quot; , nTrials = 7)
+teton_output &lt;- optFederov(~., data = teton,  criterion = &quot;D&quot; )
 
-teton_output</code></pre>
-<pre><code>## $D
-## [1] 0.2122849
-## 
-## $A
-## [1] 7.5
-## 
-## $Ge
-## [1] 0.5
-## 
-## $Dea
-## [1] 0.368
-## 
-## $design
-##    Surface                    Location Cost
-## 1    Paved    Walters Pond (.68 miles)   20
-## 5   Gravel     Teton Lakes (.58 miles)   20
-## 9     Dirt Barney Dairy Rd (.37 miles)   20
-## 13   Paved     Teton Lakes (.58 miles)   35
-## 17  Gravel Barney Dairy Rd (.37 miles)   35
-## 21    Dirt    Walters Pond (.68 miles)   80
-## 25   Paved Barney Dairy Rd (.37 miles)   80
-## 
-## $rows
-## [1]  1  5  9 13 17 21 25</code></pre>
+pander(teton_output)</code></pre>
+<ul>
+<li><p><strong>D</strong>: <em>0.2334</em></p></li>
+<li><p><strong>A</strong>: <em>7.016</em></p></li>
+<li><p><strong>Ge</strong>: <em>0.768</em></p></li>
+<li><p><strong>Dea</strong>: <em>0.74</em></p></li>
+<li><p><strong>design</strong>:</p>
+<table style="width:78%;">
+<colgroup>
+<col width="12%"></col>
+<col width="13%"></col>
+<col width="41%"></col>
+<col width="9%"></col>
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center"> </th>
+<th align="center">Surface</th>
+<th align="center">Location</th>
+<th align="center">Cost</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center"><strong>2</strong></td>
+<td align="center">Gravel</td>
+<td align="center">Walters Pond (.68 miles)</td>
+<td align="center">20</td>
+</tr>
+<tr class="even">
+<td align="center"><strong>4</strong></td>
+<td align="center">Paved</td>
+<td align="center">Teton Lakes (.58 miles)</td>
+<td align="center">20</td>
+</tr>
+<tr class="odd">
+<td align="center"><strong>9</strong></td>
+<td align="center">Dirt</td>
+<td align="center">Barney Dairy Rd (.37 miles)</td>
+<td align="center">20</td>
+</tr>
+<tr class="even">
+<td align="center"><strong>12</strong></td>
+<td align="center">Dirt</td>
+<td align="center">Walters Pond (.68 miles)</td>
+<td align="center">35</td>
+</tr>
+<tr class="odd">
+<td align="center"><strong>13</strong></td>
+<td align="center">Paved</td>
+<td align="center">Teton Lakes (.58 miles)</td>
+<td align="center">35</td>
+</tr>
+<tr class="even">
+<td align="center"><strong>14</strong></td>
+<td align="center">Gravel</td>
+<td align="center">Teton Lakes (.58 miles)</td>
+<td align="center">35</td>
+</tr>
+<tr class="odd">
+<td align="center"><strong>17</strong></td>
+<td align="center">Gravel</td>
+<td align="center">Barney Dairy Rd (.37 miles)</td>
+<td align="center">35</td>
+</tr>
+<tr class="even">
+<td align="center"><strong>19</strong></td>
+<td align="center">Paved</td>
+<td align="center">Walters Pond (.68 miles)</td>
+<td align="center">80</td>
+</tr>
+<tr class="odd">
+<td align="center"><strong>23</strong></td>
+<td align="center">Gravel</td>
+<td align="center">Teton Lakes (.58 miles)</td>
+<td align="center">80</td>
+</tr>
+<tr class="even">
+<td align="center"><strong>24</strong></td>
+<td align="center">Dirt</td>
+<td align="center">Teton Lakes (.58 miles)</td>
+<td align="center">80</td>
+</tr>
+<tr class="odd">
+<td align="center"><strong>25</strong></td>
+<td align="center">Paved</td>
+<td align="center">Barney Dairy Rd (.37 miles)</td>
+<td align="center">80</td>
+</tr>
+<tr class="even">
+<td align="center"><strong>26</strong></td>
+<td align="center">Gravel</td>
+<td align="center">Barney Dairy Rd (.37 miles)</td>
+<td align="center">80</td>
+</tr>
+</tbody>
+</table></li>
+<li><p><strong>rows</strong>: <em>2</em>, <em>4</em>, <em>9</em>, <em>12</em>, <em>13</em>, <em>14</em>, <em>17</em>, <em>19</em>, <em>23</em>, <em>24</em>, <em>25</em> and <em>26</em></p></li>
+</ul>
+<!-- end of list -->
+<hr />
 </div>
-<div id="railroad-trail" class="section level3">
-<h3>Railroad Trail…</h3>
-<pre class="r"><code>rail &lt;-  expand.grid(
+<div id="ntrials-9" class="section level4">
+<h4>(nTrials = 9)</h4>
+<pre class="r"><code>teton2 &lt;-  expand.grid(
   Surface = c(&quot;Paved&quot;, &quot;Gravel&quot;, &quot;Dirt&quot;),
-  Location = c(&quot;Poleline to 7th S (1.1 miles)&quot;, &quot;7th S to 2nd N (1.4 miles)&quot;, &quot;2nd N to 2nd E (.9 miles)&quot; ),
-  Cost = c(60, 75, 45)
-  )
+  Location = c(&quot;Walters Pond (.68 miles)&quot;, &quot;Teton Lakes (.58 miles)&quot;, &quot;Barney Dairy Rd (.37 miles)&quot; ),
+  Cost = c(&quot;20&quot;, &quot;35&quot;, &quot;80&quot;)
+  ) # Creating the choice sets
 
+
+#teton$Cost &lt;- sample(teton$Cost) # randomizing the columns
 
 set.seed(69)
 
-rail_output &lt;- optFederov( ~ ., data = rail, nTrials = 19)
+teton_output2 &lt;- optFederov(~., data = teton2,  criterion = &quot;D&quot; , nTrials = 9)
 
-rail_output$design</code></pre>
-<pre><code>##    Surface                      Location Cost
-## 1    Paved Poleline to 7th S (1.1 miles)   60
-## 10   Paved Poleline to 7th S (1.1 miles)   75
-## 11  Gravel Poleline to 7th S (1.1 miles)   75
-## 12    Dirt Poleline to 7th S (1.1 miles)   75
-## 13   Paved    7th S to 2nd N (1.4 miles)   75
-## 14  Gravel    7th S to 2nd N (1.4 miles)   75
-## 15    Dirt    7th S to 2nd N (1.4 miles)   75
-## 16   Paved     2nd N to 2nd E (.9 miles)   75
-## 17  Gravel     2nd N to 2nd E (.9 miles)   75
-## 18    Dirt     2nd N to 2nd E (.9 miles)   75
-## 19   Paved Poleline to 7th S (1.1 miles)   45
-## 20  Gravel Poleline to 7th S (1.1 miles)   45
-## 21    Dirt Poleline to 7th S (1.1 miles)   45
-## 22   Paved    7th S to 2nd N (1.4 miles)   45
-## 23  Gravel    7th S to 2nd N (1.4 miles)   45
-## 24    Dirt    7th S to 2nd N (1.4 miles)   45
-## 25   Paved     2nd N to 2nd E (.9 miles)   45
-## 26  Gravel     2nd N to 2nd E (.9 miles)   45
-## 27    Dirt     2nd N to 2nd E (.9 miles)   45</code></pre>
+pander(teton_output2)</code></pre>
+<ul>
+<li><p><strong>D</strong>: <em>0.2435</em></p></li>
+<li><p><strong>A</strong>: <em>6.143</em></p></li>
+<li><p><strong>Ge</strong>: <em>1</em></p></li>
+<li><p><strong>Dea</strong>: <em>1</em></p></li>
+<li><p><strong>design</strong>:</p>
+<table style="width:78%;">
+<colgroup>
+<col width="12%"></col>
+<col width="13%"></col>
+<col width="41%"></col>
+<col width="9%"></col>
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center"> </th>
+<th align="center">Surface</th>
+<th align="center">Location</th>
+<th align="center">Cost</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center"><strong>2</strong></td>
+<td align="center">Gravel</td>
+<td align="center">Walters Pond (.68 miles)</td>
+<td align="center">20</td>
+</tr>
+<tr class="even">
+<td align="center"><strong>4</strong></td>
+<td align="center">Paved</td>
+<td align="center">Teton Lakes (.58 miles)</td>
+<td align="center">20</td>
+</tr>
+<tr class="odd">
+<td align="center"><strong>9</strong></td>
+<td align="center">Dirt</td>
+<td align="center">Barney Dairy Rd (.37 miles)</td>
+<td align="center">20</td>
+</tr>
+<tr class="even">
+<td align="center"><strong>12</strong></td>
+<td align="center">Dirt</td>
+<td align="center">Walters Pond (.68 miles)</td>
+<td align="center">35</td>
+</tr>
+<tr class="odd">
+<td align="center"><strong>14</strong></td>
+<td align="center">Gravel</td>
+<td align="center">Teton Lakes (.58 miles)</td>
+<td align="center">35</td>
+</tr>
+<tr class="even">
+<td align="center"><strong>16</strong></td>
+<td align="center">Paved</td>
+<td align="center">Barney Dairy Rd (.37 miles)</td>
+<td align="center">35</td>
+</tr>
+<tr class="odd">
+<td align="center"><strong>19</strong></td>
+<td align="center">Paved</td>
+<td align="center">Walters Pond (.68 miles)</td>
+<td align="center">80</td>
+</tr>
+<tr class="even">
+<td align="center"><strong>24</strong></td>
+<td align="center">Dirt</td>
+<td align="center">Teton Lakes (.58 miles)</td>
+<td align="center">80</td>
+</tr>
+<tr class="odd">
+<td align="center"><strong>26</strong></td>
+<td align="center">Gravel</td>
+<td align="center">Barney Dairy Rd (.37 miles)</td>
+<td align="center">80</td>
+</tr>
+</tbody>
+</table></li>
+<li><p><strong>rows</strong>: <em>2</em>, <em>4</em>, <em>9</em>, <em>12</em>, <em>14</em>, <em>16</em>, <em>19</em>, <em>24</em> and <em>26</em></p></li>
+</ul>
+<!-- end of list -->
+<hr />
+</div>
+<div id="ntrials-7" class="section level4">
+<h4>(nTrials = 7)</h4>
+<pre class="r"><code>teton3 &lt;-  expand.grid(
+  Surface = c(&quot;Paved&quot;, &quot;Gravel&quot;, &quot;Dirt&quot;),
+  Location = c(&quot;Walters Pond (.68 miles)&quot;, &quot;Teton Lakes (.58 miles)&quot;, &quot;Barney Dairy Rd (.37 miles)&quot; ),
+  Cost = c(&quot;20&quot;, &quot;35&quot;, &quot;80&quot;)
+  ) # Creating the choice sets
+
+
+#teton$Cost &lt;- sample(teton$Cost) # randomizing the columns
+
+set.seed(69)
+
+teton_output3 &lt;- optFederov(~., data = teton3,  criterion = &quot;D&quot; , nTrials = 7)
+
+pander(teton_output3)</code></pre>
+<ul>
+<li><p><strong>D</strong>: <em>0.2123</em></p></li>
+<li><p><strong>A</strong>: <em>7.5</em></p></li>
+<li><p><strong>Ge</strong>: <em>0.5</em></p></li>
+<li><p><strong>Dea</strong>: <em>0.368</em></p></li>
+<li><p><strong>design</strong>:</p>
+<table style="width:78%;">
+<colgroup>
+<col width="12%"></col>
+<col width="13%"></col>
+<col width="41%"></col>
+<col width="9%"></col>
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center"> </th>
+<th align="center">Surface</th>
+<th align="center">Location</th>
+<th align="center">Cost</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center"><strong>1</strong></td>
+<td align="center">Paved</td>
+<td align="center">Walters Pond (.68 miles)</td>
+<td align="center">20</td>
+</tr>
+<tr class="even">
+<td align="center"><strong>5</strong></td>
+<td align="center">Gravel</td>
+<td align="center">Teton Lakes (.58 miles)</td>
+<td align="center">20</td>
+</tr>
+<tr class="odd">
+<td align="center"><strong>9</strong></td>
+<td align="center">Dirt</td>
+<td align="center">Barney Dairy Rd (.37 miles)</td>
+<td align="center">20</td>
+</tr>
+<tr class="even">
+<td align="center"><strong>13</strong></td>
+<td align="center">Paved</td>
+<td align="center">Teton Lakes (.58 miles)</td>
+<td align="center">35</td>
+</tr>
+<tr class="odd">
+<td align="center"><strong>17</strong></td>
+<td align="center">Gravel</td>
+<td align="center">Barney Dairy Rd (.37 miles)</td>
+<td align="center">35</td>
+</tr>
+<tr class="even">
+<td align="center"><strong>21</strong></td>
+<td align="center">Dirt</td>
+<td align="center">Walters Pond (.68 miles)</td>
+<td align="center">80</td>
+</tr>
+<tr class="odd">
+<td align="center"><strong>25</strong></td>
+<td align="center">Paved</td>
+<td align="center">Barney Dairy Rd (.37 miles)</td>
+<td align="center">80</td>
+</tr>
+</tbody>
+</table></li>
+<li><p><strong>rows</strong>: <em>1</em>, <em>5</em>, <em>9</em>, <em>13</em>, <em>17</em>, <em>21</em> and <em>25</em></p></li>
+</ul>
+<!-- end of list -->
+<hr />
+</div>
+</div>
+<div id="surface-levels-1" class="section level3">
+<h3>2 surface levels</h3>
+<div id="criterion-d-1" class="section level4">
+<h4>(criterion = “D”)</h4>
+<pre class="r"><code>teton4 &lt;-  expand.grid(
+  Surface = c(&quot;Paved&quot;, &quot;Gravel&quot;),
+  Location = c(&quot;Walters Pond (.68 miles)&quot;, &quot;Teton Lakes (.58 miles)&quot;, &quot;Barney Dairy Rd (.37 miles)&quot; ),
+  Cost = c(&quot;20&quot;, &quot;35&quot;, &quot;80&quot;)
+  ) # Creating the choice sets
+
+
+#teton$Cost &lt;- sample(teton$Cost) # randomizing the columns
+
+set.seed(69)
+
+teton_output4 &lt;- optFederov(~., data = teton4,  criterion = &quot;D&quot;)
+
+pander(teton_output4)</code></pre>
+<ul>
+<li><p><strong>D</strong>: <em>0.257</em></p></li>
+<li><p><strong>A</strong>: <em>6.532</em></p></li>
+<li><p><strong>Ge</strong>: <em>0.713</em></p></li>
+<li><p><strong>Dea</strong>: <em>0.669</em></p></li>
+<li><p><strong>design</strong>:</p>
+<table style="width:78%;">
+<colgroup>
+<col width="12%"></col>
+<col width="13%"></col>
+<col width="41%"></col>
+<col width="9%"></col>
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center"> </th>
+<th align="center">Surface</th>
+<th align="center">Location</th>
+<th align="center">Cost</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center"><strong>2</strong></td>
+<td align="center">Gravel</td>
+<td align="center">Walters Pond (.68 miles)</td>
+<td align="center">20</td>
+</tr>
+<tr class="even">
+<td align="center"><strong>4</strong></td>
+<td align="center">Gravel</td>
+<td align="center">Teton Lakes (.58 miles)</td>
+<td align="center">20</td>
+</tr>
+<tr class="odd">
+<td align="center"><strong>5</strong></td>
+<td align="center">Paved</td>
+<td align="center">Barney Dairy Rd (.37 miles)</td>
+<td align="center">20</td>
+</tr>
+<tr class="even">
+<td align="center"><strong>7</strong></td>
+<td align="center">Paved</td>
+<td align="center">Walters Pond (.68 miles)</td>
+<td align="center">35</td>
+</tr>
+<tr class="odd">
+<td align="center"><strong>9</strong></td>
+<td align="center">Paved</td>
+<td align="center">Teton Lakes (.58 miles)</td>
+<td align="center">35</td>
+</tr>
+<tr class="even">
+<td align="center"><strong>10</strong></td>
+<td align="center">Gravel</td>
+<td align="center">Teton Lakes (.58 miles)</td>
+<td align="center">35</td>
+</tr>
+<tr class="odd">
+<td align="center"><strong>12</strong></td>
+<td align="center">Gravel</td>
+<td align="center">Barney Dairy Rd (.37 miles)</td>
+<td align="center">35</td>
+</tr>
+<tr class="even">
+<td align="center"><strong>14</strong></td>
+<td align="center">Gravel</td>
+<td align="center">Walters Pond (.68 miles)</td>
+<td align="center">80</td>
+</tr>
+<tr class="odd">
+<td align="center"><strong>15</strong></td>
+<td align="center">Paved</td>
+<td align="center">Teton Lakes (.58 miles)</td>
+<td align="center">80</td>
+</tr>
+<tr class="even">
+<td align="center"><strong>17</strong></td>
+<td align="center">Paved</td>
+<td align="center">Barney Dairy Rd (.37 miles)</td>
+<td align="center">80</td>
+</tr>
+<tr class="odd">
+<td align="center"><strong>18</strong></td>
+<td align="center">Gravel</td>
+<td align="center">Barney Dairy Rd (.37 miles)</td>
+<td align="center">80</td>
+</tr>
+</tbody>
+</table></li>
+<li><p><strong>rows</strong>: <em>2</em>, <em>4</em>, <em>5</em>, <em>7</em>, <em>9</em>, <em>10</em>, <em>12</em>, <em>14</em>, <em>15</em>, <em>17</em> and <em>18</em></p></li>
+</ul>
+<!-- end of list -->
+<hr />
+</div>
+<div id="ntrials-6" class="section level4">
+<h4>(nTrials = 6)</h4>
+<pre class="r"><code>teton5 &lt;-  expand.grid(
+  Surface = c(&quot;Paved&quot;, &quot;Gravel&quot;),
+  Location = c(&quot;Walters Pond (.68 miles)&quot;, &quot;Teton Lakes (.58 miles)&quot;, &quot;Barney Dairy Rd (.37 miles)&quot; ),
+  Cost = c(&quot;20&quot;, &quot;35&quot;, &quot;80&quot;)
+  ) # Creating the choice sets
+
+
+#teton$Cost &lt;- sample(teton$Cost) # randomizing the columns
+
+set.seed(69)
+
+teton_output5 &lt;- optFederov(~., data = teton5,  criterion = &quot;D&quot;, nTrials = 6)
+
+pander(teton_output5)</code></pre>
+<ul>
+<li><p><strong>D</strong>: <em>0.21</em></p></li>
+<li><p><strong>A</strong>: <em>8</em></p></li>
+<li><p><strong>Ge</strong>: <em>0.333</em></p></li>
+<li><p><strong>Dea</strong>: <em>0.135</em></p></li>
+<li><p><strong>design</strong>:</p>
+<table style="width:78%;">
+<colgroup>
+<col width="12%"></col>
+<col width="13%"></col>
+<col width="41%"></col>
+<col width="9%"></col>
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center"> </th>
+<th align="center">Surface</th>
+<th align="center">Location</th>
+<th align="center">Cost</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center"><strong>2</strong></td>
+<td align="center">Gravel</td>
+<td align="center">Walters Pond (.68 miles)</td>
+<td align="center">20</td>
+</tr>
+<tr class="even">
+<td align="center"><strong>3</strong></td>
+<td align="center">Paved</td>
+<td align="center">Teton Lakes (.58 miles)</td>
+<td align="center">20</td>
+</tr>
+<tr class="odd">
+<td align="center"><strong>10</strong></td>
+<td align="center">Gravel</td>
+<td align="center">Teton Lakes (.58 miles)</td>
+<td align="center">35</td>
+</tr>
+<tr class="even">
+<td align="center"><strong>13</strong></td>
+<td align="center">Paved</td>
+<td align="center">Walters Pond (.68 miles)</td>
+<td align="center">80</td>
+</tr>
+<tr class="odd">
+<td align="center"><strong>16</strong></td>
+<td align="center">Gravel</td>
+<td align="center">Teton Lakes (.58 miles)</td>
+<td align="center">80</td>
+</tr>
+<tr class="even">
+<td align="center"><strong>17</strong></td>
+<td align="center">Paved</td>
+<td align="center">Barney Dairy Rd (.37 miles)</td>
+<td align="center">80</td>
+</tr>
+</tbody>
+</table></li>
+<li><p><strong>rows</strong>: <em>2</em>, <em>3</em>, <em>10</em>, <em>13</em>, <em>16</em> and <em>17</em></p></li>
+</ul>
+<!-- end of list -->
+</div>
+<div id="ntrials-9-1" class="section level4">
+<h4>(nTrials = 9)</h4>
+<pre class="r"><code>teton6 &lt;-  expand.grid(
+  Surface = c(&quot;Paved&quot;, &quot;Gravel&quot;),
+  Location = c(&quot;Walters Pond (.68 miles)&quot;, &quot;Teton Lakes (.58 miles)&quot;, &quot;Barney Dairy Rd (.37 miles)&quot; ),
+  Cost = c(&quot;20&quot;, &quot;35&quot;, &quot;80&quot;)
+  ) # Creating the choice sets
+
+
+#teton$Cost &lt;- sample(teton$Cost) # randomizing the columns
+
+set.seed(69)
+
+teton_output6 &lt;- optFederov(~., data = teton6,  criterion = &quot;D&quot;, nTrials = 9)
+
+pander(teton_output6)</code></pre>
+<ul>
+<li><p><strong>D</strong>: <em>0.2594</em></p></li>
+<li><p><strong>A</strong>: <em>5.917</em></p></li>
+<li><p><strong>Ge</strong>: <em>0.857</em></p></li>
+<li><p><strong>Dea</strong>: <em>0.846</em></p></li>
+<li><p><strong>design</strong>:</p>
+<table style="width:78%;">
+<colgroup>
+<col width="12%"></col>
+<col width="13%"></col>
+<col width="41%"></col>
+<col width="9%"></col>
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center"> </th>
+<th align="center">Surface</th>
+<th align="center">Location</th>
+<th align="center">Cost</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center"><strong>2</strong></td>
+<td align="center">Gravel</td>
+<td align="center">Walters Pond (.68 miles)</td>
+<td align="center">20</td>
+</tr>
+<tr class="even">
+<td align="center"><strong>4</strong></td>
+<td align="center">Gravel</td>
+<td align="center">Teton Lakes (.58 miles)</td>
+<td align="center">20</td>
+</tr>
+<tr class="odd">
+<td align="center"><strong>5</strong></td>
+<td align="center">Paved</td>
+<td align="center">Barney Dairy Rd (.37 miles)</td>
+<td align="center">20</td>
+</tr>
+<tr class="even">
+<td align="center"><strong>7</strong></td>
+<td align="center">Paved</td>
+<td align="center">Walters Pond (.68 miles)</td>
+<td align="center">35</td>
+</tr>
+<tr class="odd">
+<td align="center"><strong>10</strong></td>
+<td align="center">Gravel</td>
+<td align="center">Teton Lakes (.58 miles)</td>
+<td align="center">35</td>
+</tr>
+<tr class="even">
+<td align="center"><strong>12</strong></td>
+<td align="center">Gravel</td>
+<td align="center">Barney Dairy Rd (.37 miles)</td>
+<td align="center">35</td>
+</tr>
+<tr class="odd">
+<td align="center"><strong>14</strong></td>
+<td align="center">Gravel</td>
+<td align="center">Walters Pond (.68 miles)</td>
+<td align="center">80</td>
+</tr>
+<tr class="even">
+<td align="center"><strong>15</strong></td>
+<td align="center">Paved</td>
+<td align="center">Teton Lakes (.58 miles)</td>
+<td align="center">80</td>
+</tr>
+<tr class="odd">
+<td align="center"><strong>18</strong></td>
+<td align="center">Gravel</td>
+<td align="center">Barney Dairy Rd (.37 miles)</td>
+<td align="center">80</td>
+</tr>
+</tbody>
+</table></li>
+<li><p><strong>rows</strong>: <em>2</em>, <em>4</em>, <em>5</em>, <em>7</em>, <em>10</em>, <em>12</em>, <em>14</em>, <em>15</em> and <em>18</em></p></li>
+</ul>
+<!-- end of list -->
+</div>
+</div>
+<div id="railroad-trail" class="section level3">
+<h3>Railroad Trail…</h3>
 </div>
 </div>
 

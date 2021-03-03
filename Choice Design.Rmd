@@ -1,0 +1,113 @@
+---
+title: "Choice Design"
+author: "Ryan Gifford"
+date: "`r format(Sys.time(), '%B %d, %Y')`"
+output:
+  html_document:  
+    keep_md: true
+    toc: true
+    toc_float: true
+    code_folding: hide
+    fig_height: 6
+    fig_width: 12
+    fig_align: 'center'
+---
+
+```{r, echo=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
+```
+
+
+```{r load_data}
+# Use this R-Chunk to import all your datasets!
+
+
+#install.packages('support.CEs')
+
+library(survival)
+library(support.CEs) # 
+library(tidyverse)
+library(pander)
+library(knitr)
+library(data.table)
+library(kableExtra)
+library(stargazer)
+
+
+?Lma.design
+
+
+```
+
+
+## Matrix Design
+
+```{r}
+
+des2 <- support.CEs::Lma.design(
+  attribute.names = list(
+    Surface = c("Dirt", "Gravel", "Paved"),  
+    Dist = c("Da", "Db", "Dc"), # Distances: ALT1: 0.49,1.50, 1.63  ALT2: 0.36,0.68, 0.91
+    Cost = c("Ca", "Cb", "Cc")), #Costs: ALT1: 26,81,88     ALT2: 20, 37, 49
+  nalternatives = 2,
+  nblocks = 2,
+  row.renames = FALSE,
+  seed = 987)
+
+des2
+
+questionnaire(choice.experiment.design = des2, quote = F)
+
+desmat2 <- make.design.matrix(
+  choice.experiment.design = des2,
+  optout = T,
+  categorical.attributes = "Surface",
+  continuous.attributes = c("Dist", "Cost"),
+ # continuous.attributes = c("Dist", "Cost"),
+  unlabeled = FALSE)
+
+#write.csv(desmat2, file = "C:\\Users\\Ryan\\Desktop\\matrix.csv", row.names = F)
+
+
+
+
+```
+
+## Paper Charts
+
+
+```{r}
+
+dat <- read.csv("C:\\Users\\Ryan\\Desktop\\Choice Experiment\\choices.csv")
+
+dat1 <- dat[,c(2:3)]
+dat2 <- dat[,c(5:6)] %>% 
+  rename(Attributes = Attributes.1, Levels = Levels.1)
+
+
+
+dat1 <- list(dat2, dat1) %>%
+  kbl(caption =  "Choice Experiment Design") %>%
+  kable_classic("striped" ,full_width = F, html_font = "Times New Roman") %>% 
+    add_header_above(c("Rail Trail" = 1, "Teton Trail" = 1)) 
+
+#%>% save_kable(file = "C:\\Users\\Ryan\\Google Drive\\BYU-I\\Winter_2021\\Special Projects\\Paper\\Tables\\Rplot.jpg", zoom = 2)
+
+
+# webshot::install_phantomjs()
+
+
+stargazer(dat1,
+          type = "html",
+          out = "C:\\Users\\Ryan\\Google Drive\\BYU-I\\Winter_2021\\Special Projects\\Paper\\Tables\\Rplot.doc")
+
+
+write.table(dat1, "C:\\Users\\Ryan\\Google Drive\\BYU-I\\Winter_2021\\Special Projects\\Paper\\Tables\\Rplot.doc")
+
+
+
+print(kable(dat1))
+
+```
+
+

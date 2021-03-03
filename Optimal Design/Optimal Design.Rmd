@@ -108,17 +108,19 @@ output3$design
 ```{r}
 
 teton <-  expand.grid(
-  Surface = c("Paved", "Gravel"),
+  Surface = c("Paved", "Gravel", "Dirt"),
   Location = c("Walters Pond (.68 miles)", "Teton Lakes (.58 miles)", "Barney Dairy Rd (.37 miles)" ),
-  Cost = c(20, 35, 80)
-  )
+  Cost = c("20", "35", "80")
+  ) # Creating the choice sets
 
+
+#teton$Cost <- sample(teton$Cost) # randomizing the columns
 
 set.seed(69)
 
-teton_output <- optFederov( ~ ., data = teton, nTrials = 6)
+teton_output <- optFederov(~., data = teton,  criterion = "D" )
 
-teton_output$design
+teton_output
 
 
 ```
@@ -128,17 +130,17 @@ teton_output$design
 ```{r}
 
 rail <-  expand.grid(
-  Surface = c("Paved", "Gravel"),
+  Surface = c("Paved", "Gravel", "Dirt"),
   Location = c("Poleline to 7th S (1.1 miles)", "7th S to 2nd N (1.4 miles)", "2nd N to 2nd E (.9 miles)" ),
-  Cost = c(60, 75, 45)
+  Cost = c("60", "75", "45")
   )
 
 
 set.seed(69)
 
-rail_output <- optFederov( ~ ., data = rail, nTrials = 6)
+rail_output <- optFederov( ~ ., data = rail, criterion = "D", nTrials = 7)
 
-rail_output$design
+rail_output
 
 
 ```

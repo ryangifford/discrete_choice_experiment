@@ -1,7 +1,7 @@
 ---
 title: "Optimal Design"
 author: "Ryan Gifford"
-date: "November 03, 2020"
+date: "November 11, 2020"
 output:
   html_document:  
     keep_md: true
@@ -153,27 +153,46 @@ output3$design
 
 ```r
 teton <-  expand.grid(
-  Surface = c("Paved", "Gravel"),
+  Surface = c("Paved", "Gravel", "Dirt"),
   Location = c("Walters Pond (.68 miles)", "Teton Lakes (.58 miles)", "Barney Dairy Rd (.37 miles)" ),
-  Cost = c(20, 35, 80)
-  )
+  Cost = c("20", "35", "80")
+  ) # Creating the choice sets
 
+
+#teton$Cost <- sample(teton$Cost) # randomizing the columns
 
 set.seed(69)
 
-teton_output <- optFederov( ~ ., data = teton, nTrials = 6)
+teton_output <- optFederov(~., data = teton,  criterion = "D" , nTrials = 7)
 
-teton_output$design
+teton_output
 ```
 
 ```
+## $D
+## [1] 0.2122849
+## 
+## $A
+## [1] 7.5
+## 
+## $Ge
+## [1] 0.5
+## 
+## $Dea
+## [1] 0.368
+## 
+## $design
 ##    Surface                    Location Cost
-## 2   Gravel    Walters Pond (.68 miles)   20
-## 3    Paved     Teton Lakes (.58 miles)   20
-## 6   Gravel Barney Dairy Rd (.37 miles)   20
-## 13   Paved    Walters Pond (.68 miles)   80
-## 16  Gravel     Teton Lakes (.58 miles)   80
-## 17   Paved Barney Dairy Rd (.37 miles)   80
+## 1    Paved    Walters Pond (.68 miles)   20
+## 5   Gravel     Teton Lakes (.58 miles)   20
+## 9     Dirt Barney Dairy Rd (.37 miles)   20
+## 13   Paved     Teton Lakes (.58 miles)   35
+## 17  Gravel Barney Dairy Rd (.37 miles)   35
+## 21    Dirt    Walters Pond (.68 miles)   80
+## 25   Paved Barney Dairy Rd (.37 miles)   80
+## 
+## $rows
+## [1]  1  5  9 13 17 21 25
 ```
 
 ### Railroad Trail...
@@ -181,7 +200,7 @@ teton_output$design
 
 ```r
 rail <-  expand.grid(
-  Surface = c("Paved", "Gravel"),
+  Surface = c("Paved", "Gravel", "Dirt"),
   Location = c("Poleline to 7th S (1.1 miles)", "7th S to 2nd N (1.4 miles)", "2nd N to 2nd E (.9 miles)" ),
   Cost = c(60, 75, 45)
   )
@@ -189,18 +208,31 @@ rail <-  expand.grid(
 
 set.seed(69)
 
-rail_output <- optFederov( ~ ., data = rail, nTrials = 6)
+rail_output <- optFederov( ~ ., data = rail, nTrials = 19)
 
 rail_output$design
 ```
 
 ```
 ##    Surface                      Location Cost
-## 7    Paved Poleline to 7th S (1.1 miles)   75
-## 10  Gravel    7th S to 2nd N (1.4 miles)   75
-## 12  Gravel     2nd N to 2nd E (.9 miles)   75
-## 14  Gravel Poleline to 7th S (1.1 miles)   45
-## 15   Paved    7th S to 2nd N (1.4 miles)   45
-## 17   Paved     2nd N to 2nd E (.9 miles)   45
+## 1    Paved Poleline to 7th S (1.1 miles)   60
+## 10   Paved Poleline to 7th S (1.1 miles)   75
+## 11  Gravel Poleline to 7th S (1.1 miles)   75
+## 12    Dirt Poleline to 7th S (1.1 miles)   75
+## 13   Paved    7th S to 2nd N (1.4 miles)   75
+## 14  Gravel    7th S to 2nd N (1.4 miles)   75
+## 15    Dirt    7th S to 2nd N (1.4 miles)   75
+## 16   Paved     2nd N to 2nd E (.9 miles)   75
+## 17  Gravel     2nd N to 2nd E (.9 miles)   75
+## 18    Dirt     2nd N to 2nd E (.9 miles)   75
+## 19   Paved Poleline to 7th S (1.1 miles)   45
+## 20  Gravel Poleline to 7th S (1.1 miles)   45
+## 21    Dirt Poleline to 7th S (1.1 miles)   45
+## 22   Paved    7th S to 2nd N (1.4 miles)   45
+## 23  Gravel    7th S to 2nd N (1.4 miles)   45
+## 24    Dirt    7th S to 2nd N (1.4 miles)   45
+## 25   Paved     2nd N to 2nd E (.9 miles)   45
+## 26  Gravel     2nd N to 2nd E (.9 miles)   45
+## 27    Dirt     2nd N to 2nd E (.9 miles)   45
 ```
 

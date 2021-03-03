@@ -1,20 +1,15 @@
 ---
-title: "Tables"
+title: "Trails Analysis"
 output: word_document
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 
-
 library(survival)
 library(support.CEs)
 library(tidyverse)
 library(pander)
-library(knitr)
-library(data.table)
-library(kableExtra)
-library(stargazer)
 library(flextable)
 ```
 
@@ -43,4 +38,3 @@ flextable(dat) %>%
   align(align = "center", part = "header") %>% 
   line_spacing(space = .5, part = "all")
 ```
-

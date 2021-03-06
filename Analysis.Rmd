@@ -14,8 +14,16 @@ library(flextable)
 ```
 
 
+## Data Wrangling
+```{r}
+design_matrix <- read.csv("https://raw.githubusercontent.com/ryangifford/discrete_choice_experiment/master/Data/design_matrix.csv")
+
+survey <- read.csv("https://raw.githubusercontent.com/ryangifford/discrete_choice_experiment/master/Data/Rexburg%20Trails_CE.csv")
+
+View(survey)
 
 
+```
 
 ## Tables 
 

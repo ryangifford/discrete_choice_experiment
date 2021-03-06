@@ -1,0 +1,21 @@
+1-4 How likely are you to participate in these activities? Definitely Not, Not Likely, Possibly, Likely, Definitely
+5 Do you own a bicycle? Yes, No
+6 How often each week do you cycle? 1. Everyday, 2. 5-6 Times, 3. 3-4 times, 4. At least once per week
+7 Rank your preffered method when cycling. 1. Bike Lanes, 2. Bike Paths, 3. With Traffic
+Q8 Why do you cycle? 1. Recreation, 2. Exercise, 3. Commuting to work/school
+9-13 Do you hae kids in public school? Yes, No
+14 Surface preferance: 1. Asphalt, 2. Crushed Stone, 3. Dirt
+15 prefered segment: 1. Teton AB, 2. Teton CD, 3. Teton EF, 4. Rail AB, 5. Rail BC, 6. Rail DE
+
+
+gender: Male, Female
+Age:
+Education: 1. less than hs, 2. high school/ged, 3. some college, 4. associates, 5. bachelors, 6. masters, 7. PhD, 8. Trade School.cert
+residence: rexburg resident, byui student, other
+employment: Part time, full time, other
+are you married: yes, no
+people in household: 1-6
+income range: 1. less than 10,000
+		2. 10,000-20,000
+		11. 100,000-149,000
+		12. more than 150,000

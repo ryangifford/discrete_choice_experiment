@@ -3,7 +3,7 @@ title: "Trails Analysis"
 output: word_document
 ---
 
-```{r setup, include=FALSE}
+```{r libraries, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 
 library(survival)
@@ -13,13 +13,23 @@ library(pander)
 library(flextable)
 ```
 
-## Choice Attribute Table
-
-```{r cars}
-dat <- read.csv("C:\\Users\\Ryan\\Desktop\\Choice Experiment\\discrete_choice_experiment\\Data\\choices.csv") 
 
 
-flextable(dat) %>% 
+
+
+## Tables 
+
+
+### Choice Attribute Table
+
+```{r Table}
+#dat <- read.csv("C:\\Users\\Ryan\\Desktop\\Choice Experiment\\discrete_choice_experiment\\Data\\choices.csv") 
+
+dat_att <- read.csv("https://raw.githubusercontent.com/ryangifford/discrete_choice_experiment/master/Data/choices.csv") # this is a .csv with the all the attributes and levels
+
+
+
+flextable(dat_att) %>% # this creates the table in word
   align(part = "all") %>% # left align
   set_caption(caption = "Rail Trail") %>% 
   font(fontname = "Times New Roman", part = "all") %>% 
@@ -37,4 +47,11 @@ flextable(dat) %>%
   colwidths = c(2, 2)) %>% 
   align(align = "center", part = "header") %>% 
   line_spacing(space = .5, part = "all")
+
+
+```
+
+```{r}
+
+
 ```

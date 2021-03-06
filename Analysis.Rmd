@@ -54,4 +54,24 @@ flextable(dat_att) %>% # this creates the table in word
 ```{r}
 
 
+
+dat_key <- read.csv("https://raw.githubusercontent.com/ryangifford/discrete_choice_experiment/master/Data/Coding%20Key.csv") # this is a .csv with the all the attributes and levels
+
+
+
+flextable(dat_key) %>% # this creates the table in word
+  align(part = "all") %>% # left align
+  set_caption(caption = "Rail Trail") %>% 
+  font(fontname = "Times New Roman", part = "all") %>% 
+  fontsize(size = 12, part = "body") %>% 
+  # add footer if you want
+  # add_footer_row(values = "* p < 0.05. ** p < 0.01. *** p < 0.001.", 
+  #                colwidths = 4) %>% 
+  theme_booktabs() %>% # default theme
+  autofit() %>% 
+  bg(i = c(1,3,5,7,9,11,13,15,17,19,21,23,25,27,29), bg = "#F7F7F7") %>% 
+  hline(i = c(3,9,11,17))  %>% 
+  vline(j = c(1,2,3,4,5)) %>% 
+  align(align = "center", part = "header") %>% 
+  line_spacing(space = .5, part = "all")
 ```

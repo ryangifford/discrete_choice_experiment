@@ -21,14 +21,23 @@ library(aod)
 ```{r}
 design_matrix <- read.csv("https://raw.githubusercontent.com/ryangifford/discrete_choice_experiment/master/Data/design_matrix.csv") # importing the matrix design (see matrix design file)
 
-survey <- read.csv("https://raw.githubusercontent.com/ryangifford/discrete_choice_experiment/master/Data/Rexburg%20Trails_CE.csv") %>% 
+survey <- read.csv("https://raw.githubusercontent.com/ryangifford/discrete_choice_experiment/master/Data/Rexburg%20Trails_CE.csv")# %>% 
   select(c1:c9, res, id) %>% 
   pivot_longer(cols = starts_with("c"), names_to = "question_num", values_to = "Key")
+  
+  
+
 
 # importing the survey data, selecting the choice experiment questions + resident status + id, 
 # making each observatoin an individual row. Key is block num, question num, and alt. num. 
 
-dat <- right_join(design_matrix, survey, by = "Key")
+#dat <- right_join(design_matrix, survey, by = "Key")
+
+
+#dat2 <- dat %>% 
+ # mutate(I = str_extract(dat$Key, "^.{2}")) %>% 
+ # mutate(Chose = str_sub(dat$Key, -1))
+
 
 
 
@@ -38,12 +47,10 @@ dat <- right_join(design_matrix, survey, by = "Key")
 https://stats.idre.ucla.edu/r/dae/logit-regression/
 ```{r}
 
-
-logit <- glm(Teton ~ Dirt + Gravel + Paved + Dist + Cost + as.factor(res), data = dat)
-
-summary(logit)
-
-confint(logit)
+mlogit.test <- mlogit.data(dat2,
+                          choice = dat2$Chose,
+                          shape = 'wide',
+                          varying = 2:8)
 
 ```
 

@@ -14,7 +14,7 @@ library(flextable)
 library(tidyverse)
 library(mlogit) # for logistic regression
 library(aod)
-
+library(gmnl)
 ```
 
 
@@ -47,19 +47,37 @@ dat <- read.csv("https://raw.githubusercontent.com/ryangifford/discrete_choice_e
 
 https://stats.idre.ucla.edu/r/dae/logit-regression/
 ```{r}
-DCE_data<- mlogit.data(data=dat, choice = "Choice", shape = "long", alt.var = "Alternative", drop.index = TRUE) #ok
-
-model <- mlogit(Choice ~ Rail + Teton + Dirt + Gravel + Paved + Dist + Cost, 
-                data = dat)
 
 
-
-mylogit <- glm(Choice ~ Rail + Teton + Dirt + Gravel + Paved + Dist + Cost, 
-                data = dat, family = "binomial")
+library(dfidx)
 
 
+dat <- dat %>% 
+  filter(ID != 42 & ID !=44 & ID != 46 & ID != 65)
+
+
+
+MC <- dfidx(dat, idx = c("Case", "Alternative"), drop.index = FALSE)
+
+
+
+ml.MC1 <- mlogit(Choice ~ Rail + Teton + Dirt + Gravel + Paved + Dist + Cost, 
+                data = MC)
+
+
+mylogit <- glm(Choice ~ Rail + Teton + Dirt + Gravel + Dist + Cost, 
+                data = MC)
 
 summary(mylogit)
+
+
+
+
+
+
+
+mylogit <- gmnl(Choice ~ Rail + Teton + Dirt + Gravel + Dist + Cost, 
+                data = dat2)
 ```
 
 ## Plot

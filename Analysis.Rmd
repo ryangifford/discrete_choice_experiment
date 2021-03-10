@@ -12,8 +12,9 @@ library(tidyverse)
 library(pander)
 library(flextable)
 library(tidyverse)
-library(mlogit)
+library(mlogit) # for logistic regression
 library(aod)
+
 ```
 
 
@@ -38,7 +39,7 @@ survey <- read.csv("https://raw.githubusercontent.com/ryangifford/discrete_choic
  # mutate(I = str_extract(dat$Key, "^.{2}")) %>% 
  # mutate(Chose = str_sub(dat$Key, -1))
 
-
+dat <- read.csv("https://raw.githubusercontent.com/ryangifford/discrete_choice_experiment/master/Data/FinalData.csv")
 
 
 ```
@@ -46,12 +47,19 @@ survey <- read.csv("https://raw.githubusercontent.com/ryangifford/discrete_choic
 
 https://stats.idre.ucla.edu/r/dae/logit-regression/
 ```{r}
+DCE_data<- mlogit.data(data=dat, choice = "Choice", shape = "long", alt.var = "Alternative", drop.index = TRUE) #ok
 
-mlogit.test <- mlogit.data(dat2,
-                          choice = dat2$Chose,
-                          shape = 'wide',
-                          varying = 2:8)
+model <- mlogit(Choice ~ Rail + Teton + Dirt + Gravel + Paved + Dist + Cost, 
+                data = dat)
 
+
+
+mylogit <- glm(Choice ~ Rail + Teton + Dirt + Gravel + Paved + Dist + Cost, 
+                data = dat, family = "binomial")
+
+
+
+summary(mylogit)
 ```
 
 ## Plot

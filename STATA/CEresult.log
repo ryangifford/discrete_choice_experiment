@@ -1,0 +1,317 @@
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+      name:  <unnamed>
+       log:  D:\RyanCE\CEresult.log
+  log type:  text
+ opened on:  11 Mar 2021, 10:13:31
+
+.  insheet using "D:\RyanCE\FinalData.csv";
+(47 vars, 1797 obs)
+
+. /*full results*/
+> asclogit choice dirt gravel paved dist cost, vce(cluster id)case(case) alternative(alternative) basealternative(3);
+note: 1 case (3 obs) dropped due to no positive outcome per case
+note: variable dirt has 233 cases that are not alternative-specific: there is no within-case variability
+note: variable gravel has 268 cases that are not alternative-specific: there is no within-case variability
+note: variable paved has 264 cases that are not alternative-specific: there is no within-case variability
+
+Iteration 0:   log pseudolikelihood = -572.03724  
+Iteration 1:   log pseudolikelihood = -561.34811  
+Iteration 2:   log pseudolikelihood = -560.99931  
+Iteration 3:   log pseudolikelihood = -560.99885  
+Iteration 4:   log pseudolikelihood = -560.99885  
+
+Alternative-specific conditional logit         Number of obs      =       1794
+Case variable: case                            Number of cases    =        598
+
+Alternative variable: alternative              Alts per case: min =          3
+                                                              avg =        3.0
+                                                              max =          3
+
+                                                  Wald chi2(5)    =      32.33
+Log pseudolikelihood = -560.99885                 Prob > chi2     =     0.0000
+
+                                    (Std. Err. adjusted for 67 clusters in id)
+------------------------------------------------------------------------------
+             |               Robust
+      choice |      Coef.   Std. Err.      z    P>|z|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+alternative  |
+        dirt |  -.4377247   .3841764    -1.14   0.255    -1.190697    .3152472
+      gravel |  -.4740728   .3733439    -1.27   0.204    -1.205813    .2576679
+       paved |   .1596411   .4260035     0.37   0.708    -.6753104    .9945926
+        dist |   .2313692   .0787389     2.94   0.003     .0770439    .3856946
+        cost |  -.0018033   .0012879    -1.40   0.161    -.0043276    .0007209
+-------------+----------------------------------------------------------------
+1            |
+       _cons |   1.104417   .5199988     2.12   0.034     .0852379    2.123596
+-------------+----------------------------------------------------------------
+2            |
+       _cons |   1.581151   .4735615     3.34   0.001     .6529878    2.509315
+-------------+----------------------------------------------------------------
+3            |  (base alternative)
+------------------------------------------------------------------------------
+
+. estimates store full;
+
+. /*Krinsky Robb for full*/
+> 
+> matrix list e(V);
+
+symmetric e(V)[7,7]
+                     alternative:  alternative:  alternative:  alternative:  alternative:            1:            2:
+                            dirt        gravel         paved          dist          cost         _cons         _cons
+  alternative:dirt     .14759151
+alternative:gravel     .12840617      .1393857
+ alternative:paved      .1463734     .13862003     .18147896
+  alternative:dist    -.00433428     -.0060108     -.0063062     .00619981
+  alternative:cost     .00011677     .00009436     .00018491     8.890e-06     1.659e-06
+           1:_cons    -.14581604    -.13179922    -.16654038    -.00362166    -.00024586     .27039872
+           2:_cons    -.13290728    -.12408975    -.15130562     .00077709    -.00019294     .23572854     .22426046
+
+. nlcom WTP_Dirt: - _b[dirt] / _b[cost];
+
+    WTP_Dirt:  - _b[dirt] / _b[cost]
+
+------------------------------------------------------------------------------
+      choice |      Coef.   Std. Err.      z    P>|z|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+    WTP_Dirt |  -242.7316   240.8422    -1.01   0.314    -714.7736    229.3105
+------------------------------------------------------------------------------
+
+. nlcom WTP_Gravel: - _b[gravel] / _b[cost];
+
+  WTP_Gravel:  - _b[gravel] / _b[cost]
+
+------------------------------------------------------------------------------
+      choice |      Coef.   Std. Err.      z    P>|z|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+  WTP_Gravel |  -262.8877   250.7117    -1.05   0.294    -754.2735    228.4981
+------------------------------------------------------------------------------
+
+. nlcom WTP_Paved: - _b[paved] / _b[cost];
+
+   WTP_Paved:  - _b[paved] / _b[cost]
+
+------------------------------------------------------------------------------
+      choice |      Coef.   Std. Err.      z    P>|z|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+   WTP_Paved |   88.52582   264.3297     0.33   0.738    -429.5509    606.6025
+------------------------------------------------------------------------------
+
+. nlcom WTP_Dist: - _b[dist] / _b[cost];
+
+    WTP_Dist:  - _b[dist] / _b[cost]
+
+------------------------------------------------------------------------------
+      choice |      Coef.   Std. Err.      z    P>|z|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+    WTP_Dist |   128.3012   104.9008     1.22   0.221    -77.30058    333.9031
+------------------------------------------------------------------------------
+
+. /*population results*/
+> asclogit choice_p dirt_p gravel_p paved_p dist_p cost_p, vce(cluster id_p)case(case_p) alternative(alternative_p) basealternative(3);
+note: variable dirt_p has 89 cases that are not alternative-specific: there is no within-case variability
+note: variable gravel_p has 104 cases that are not alternative-specific: there is no within-case variability
+note: variable paved_p has 102 cases that are not alternative-specific: there is no within-case variability
+
+Iteration 0:   log pseudolikelihood = -225.46372  
+Iteration 1:   log pseudolikelihood = -218.23367  
+Iteration 2:   log pseudolikelihood = -218.06696  
+Iteration 3:   log pseudolikelihood = -218.06679  
+Iteration 4:   log pseudolikelihood = -218.06679  
+
+Alternative-specific conditional logit         Number of obs      =        696
+Case variable: case_p                          Number of cases    =        232
+
+Alternative variable: alternative_p            Alts per case: min =          3
+                                                              avg =        3.0
+                                                              max =          3
+
+                                                  Wald chi2(5)    =      13.40
+Log pseudolikelihood = -218.06679                 Prob > chi2     =     0.0199
+
+                                   (Std. Err. adjusted for 26 clusters in id_p)
+-------------------------------------------------------------------------------
+              |               Robust
+     choice_p |      Coef.   Std. Err.      z    P>|z|     [95% Conf. Interval]
+--------------+----------------------------------------------------------------
+alternative_p |
+       dirt_p |  -.5584616   .6283755    -0.89   0.374    -1.790055    .6731317
+     gravel_p |  -.6859814   .6463821    -1.06   0.289    -1.952867    .5809043
+      paved_p |  -.1109733   .6855684    -0.16   0.871    -1.454663    1.232716
+       dist_p |   .2931495   .1039995     2.82   0.005     .0893142    .4969847
+       cost_p |   -.002096   .0023958    -0.87   0.382    -.0067916    .0025996
+--------------+----------------------------------------------------------------
+1             |
+        _cons |   .8833656   .8523976     1.04   0.300    -.7873029    2.554034
+--------------+----------------------------------------------------------------
+2             |
+        _cons |   1.667074   .7659084     2.18   0.030     .1659209    3.168226
+--------------+----------------------------------------------------------------
+3             |  (base alternative)
+-------------------------------------------------------------------------------
+
+. estimates store population;
+
+. /*Krinsky Robb for population*/
+> 
+> matrix list e(V);
+
+symmetric e(V)[7,7]
+                         alternati~p:  alternati~p:  alternati~p:  alternati~p:  alternati~p:            1:            2:
+                              dirt_p      gravel_p       paved_p        dist_p        cost_p         _cons         _cons
+  alternative_p:dirt_p     .39485573
+alternative_p:gravel_p     .37238425     .41780988
+ alternative_p:paved_p     .39371266     .39244217     .47000404
+  alternative_p:dist_p    -.01404458    -.01711052    -.01677988      .0108159
+  alternative_p:cost_p     .00030816     .00029223     .00044821    -.00001806     5.740e-06
+               1:_cons    -.41698276     -.3957662    -.47043433      .0003043    -.00050125     .72658164
+               2:_cons    -.37878567    -.36457326    -.41337983     .01147608     -.0004655     .61300248      .5866156
+
+. nlcom WTP_Dirtp: - _b[dirt_p] / _b[cost_p];
+
+   WTP_Dirtp:  - _b[dirt_p] / _b[cost_p]
+
+------------------------------------------------------------------------------
+    choice_p |      Coef.   Std. Err.      z    P>|z|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+   WTP_Dirtp |  -266.4453   381.1224    -0.70   0.484    -1013.431    480.5409
+------------------------------------------------------------------------------
+
+. nlcom WTP_Gravelp: - _b[gravel_p] / _b[cost_p];
+
+ WTP_Gravelp:  - _b[gravel_p] / _b[cost_p]
+
+------------------------------------------------------------------------------
+    choice_p |      Coef.   Std. Err.      z    P>|z|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+ WTP_Gravelp |  -327.2857    437.622    -0.75   0.455    -1185.009    530.4377
+------------------------------------------------------------------------------
+
+. nlcom WTP_Pavedp: - _b[paved_p] / _b[cost_p];
+
+  WTP_Pavedp:  - _b[paved_p] / _b[cost_p]
+
+------------------------------------------------------------------------------
+    choice_p |      Coef.   Std. Err.      z    P>|z|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+  WTP_Pavedp |  -52.94602   315.9841    -0.17   0.867    -672.2634    566.3713
+------------------------------------------------------------------------------
+
+. nlcom WTP_Distp: - _b[dist_p] / _b[cost_p];
+
+   WTP_Distp:  - _b[dist_p] / _b[cost_p]
+
+------------------------------------------------------------------------------
+    choice_p |      Coef.   Std. Err.      z    P>|z|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+   WTP_Distp |   139.8633   163.9196     0.85   0.394    -181.4132    461.1398
+------------------------------------------------------------------------------
+
+. /*student results*/
+> asclogit choice_s dirt_s gravel_s paved_s dist_s cost_s, vce(cluster id_s)case(case_s) alternative(alternative_s) basealternative(3);
+note: 1 case (3 obs) dropped due to no positive outcome per case
+note: variable dirt_s has 115 cases that are not alternative-specific: there is no within-case variability
+note: variable gravel_s has 132 cases that are not alternative-specific: there is no within-case variability
+note: variable paved_s has 131 cases that are not alternative-specific: there is no within-case variability
+
+Iteration 0:   log pseudolikelihood = -288.29265  
+Iteration 1:   log pseudolikelihood = -283.34149  
+Iteration 2:   log pseudolikelihood = -283.21276  
+Iteration 3:   log pseudolikelihood = -283.21265  
+Iteration 4:   log pseudolikelihood = -283.21265  
+
+Alternative-specific conditional logit         Number of obs      =        885
+Case variable: case_s                          Number of cases    =        295
+
+Alternative variable: alternative_s            Alts per case: min =          3
+                                                              avg =        3.0
+                                                              max =          3
+
+                                                  Wald chi2(5)    =      11.29
+Log pseudolikelihood = -283.21265                 Prob > chi2     =     0.0459
+
+                                   (Std. Err. adjusted for 33 clusters in id_s)
+-------------------------------------------------------------------------------
+              |               Robust
+     choice_s |      Coef.   Std. Err.      z    P>|z|     [95% Conf. Interval]
+--------------+----------------------------------------------------------------
+alternative_s |
+       dirt_s |  -.3992382     .54938    -0.73   0.467    -1.476003    .6775269
+     gravel_s |  -.5345688   .4888808    -1.09   0.274    -1.492758      .42362
+      paved_s |   .1396218    .602577     0.23   0.817    -1.041407    1.320651
+       dist_s |   .1664497   .1266828     1.31   0.189     -.081844    .4147434
+       cost_s |  -.0010829   .0018429    -0.59   0.557     -.004695    .0025291
+--------------+----------------------------------------------------------------
+1             |
+        _cons |   1.056087   .7360598     1.43   0.151    -.3865635    2.498738
+--------------+----------------------------------------------------------------
+2             |
+        _cons |   1.492534   .6736917     2.22   0.027      .172122    2.812945
+--------------+----------------------------------------------------------------
+3             |  (base alternative)
+-------------------------------------------------------------------------------
+
+. estimates store student;
+
+. /*Krinsky Robb for student*/
+> 
+> matrix list e(V);
+
+symmetric e(V)[7,7]
+                         alternati~s:  alternati~s:  alternati~s:  alternati~s:  alternati~s:            1:            2:
+                              dirt_s      gravel_s       paved_s        dist_s        cost_s         _cons         _cons
+  alternative_s:dirt_s     .30181843
+alternative_s:gravel_s     .23544856     .23900443
+ alternative_s:paved_s     .28900672     .24739536     .36309908
+  alternative_s:dist_s    -.00312783    -.00689511    -.00972627     .01604853
+  alternative_s:cost_s     .00033333     .00028138     .00050002     .00004375     3.396e-06
+               1:_cons    -.29512592    -.25377574      -.338457    -.01653947    -.00066915     .54178402
+               2:_cons    -.26728535      -.236021    -.30755359     -.0093675    -.00053289     .48525356     .45386056
+
+. nlcom WTP_Dirts: - _b[dirt_s] / _b[cost_s];
+
+   WTP_Dirts:  - _b[dirt_s] / _b[cost_s]
+
+------------------------------------------------------------------------------
+    choice_s |      Coef.   Std. Err.      z    P>|z|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+   WTP_Dirts |  -368.6652   664.3844    -0.55   0.579    -1670.835    933.5043
+------------------------------------------------------------------------------
+
+. nlcom WTP_Gravels: - _b[gravel_s] / _b[cost_s];
+
+ WTP_Gravels:  - _b[gravel_s] / _b[cost_s]
+
+------------------------------------------------------------------------------
+    choice_s |      Coef.   Std. Err.      z    P>|z|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+ WTP_Gravels |  -493.6323   820.1327    -0.60   0.547    -2101.063    1113.798
+------------------------------------------------------------------------------
+
+. nlcom WTP_Paveds: - _b[paved_s] / _b[cost_s];
+
+  WTP_Paveds:  - _b[paved_s] / _b[cost_s]
+
+------------------------------------------------------------------------------
+    choice_s |      Coef.   Std. Err.      z    P>|z|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+  WTP_Paveds |   128.9298   683.8885     0.19   0.850    -1211.467    1469.327
+------------------------------------------------------------------------------
+
+. nlcom WTP_Dists: - _b[dist_s] / _b[cost_s];
+
+   WTP_Dists:  - _b[dist_s] / _b[cost_s]
+
+------------------------------------------------------------------------------
+    choice_s |      Coef.   Std. Err.      z    P>|z|     [95% Conf. Interval]
+-------------+----------------------------------------------------------------
+   WTP_Dists |   153.7032   305.8952     0.50   0.615    -445.8403    753.2467
+------------------------------------------------------------------------------
+
+. log close;
+      name:  <unnamed>
+       log:  D:\RyanCE\CEresult.log
+  log type:  text
+ closed on:  11 Mar 2021, 10:13:31
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------

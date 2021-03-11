@@ -59,24 +59,22 @@ dat <- dat %>%
 
 MC <- dfidx(dat, idx = c("Case", "Alternative"), drop.index = FALSE)
 
+MC <- dfidx(dat, idx = c("Case", "Alternative"), alt.levels = c(1, 2, 3))
+
 
 
 ml.MC1 <- mlogit(Choice ~ Rail + Teton + Dirt + Gravel + Paved + Dist + Cost, 
                 data = MC)
 
 
-mylogit <- glm(Choice ~ Rail + Teton + Dirt + Gravel + Dist + Cost, 
-                data = MC)
+mylogit <- glm(Choice ~ Rail + Teton + Dirt + Gravel + Paved + Dist + Cost, 
+                data = MC, binomial(link = "logit"))
 
 summary(mylogit)
 
 
 
-
-
-
-
-mylogit <- gmnl(Choice ~ Rail + Teton + Dirt + Gravel + Dist + Cost, 
+mylogit <- gmnl(Choice ~ Rail + Teton + Dirt + Gravel + Dist  + Paved+ Cost, 
                 data = dat2)
 ```
 
@@ -102,7 +100,7 @@ $$
 
 ### Choice Attribute Table
 
-```{r Table}
+```{r table}
 #dat <- read.csv("C:\\Users\\Ryan\\Desktop\\Choice Experiment\\discrete_choice_experiment\\Data\\choices.csv") 
 
 dat_att <- read.csv("https://raw.githubusercontent.com/ryangifford/discrete_choice_experiment/master/Data/choices.csv") # this is a .csv with the all the attributes and levels
@@ -127,8 +125,6 @@ flextable(dat_att) %>% # this creates the table in word
   colwidths = c(2, 2)) %>% 
   align(align = "center", part = "header") %>% 
   line_spacing(space = .5, part = "all")
-
-
 ```
 
 ```{r}
@@ -154,4 +150,5 @@ flextable(dat_key) %>% # this creates the table in word
   vline(j = c(1,2,3,4,5)) %>% 
   align(align = "center", part = "header") %>% 
   line_spacing(space = .5, part = "all")
+  
 ```

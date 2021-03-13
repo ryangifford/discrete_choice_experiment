@@ -19,7 +19,7 @@ library(gmnl)
 
 
 ## Data Wrangling
-```{r}
+```{r eval = FALSE}
 design_matrix <- read.csv("https://raw.githubusercontent.com/ryangifford/discrete_choice_experiment/master/Data/design_matrix.csv") # importing the matrix design (see matrix design file)
 
 survey <- read.csv("https://raw.githubusercontent.com/ryangifford/discrete_choice_experiment/master/Data/Rexburg%20Trails_CE.csv")# %>% 
@@ -46,7 +46,7 @@ dat <- read.csv("https://raw.githubusercontent.com/ryangifford/discrete_choice_e
 
 
 https://stats.idre.ucla.edu/r/dae/logit-regression/
-```{r}
+```{r eval = FALSE}
 
 
 library(dfidx)
@@ -93,7 +93,7 @@ $$U_n^i = V_n^i + \epsilon_n^i$$
 $$V_n^i = \gamma_n + \lambda_nX_n^i$$
 $$I^{th}$$
 $$Prob[V_n^i + \epsilon_n^i \geq V_k^i + \epsilon_k^i; \forall \neq k$$
-$$
+
 
 ## Tables 
 
@@ -127,6 +127,9 @@ flextable(dat_att) %>% # this creates the table in word
   line_spacing(space = .5, part = "all")
 ```
 
+
+
+### Coding Table
 ```{r}
 
 
@@ -151,4 +154,52 @@ flextable(dat_key) %>% # this creates the table in word
   align(align = "center", part = "header") %>% 
   line_spacing(space = .5, part = "all")
   
+```
+
+
+### Regression Output
+
+```{r}
+dat_reg <- read.csv("https://raw.githubusercontent.com/ryangifford/discrete_choice_experiment/master/Data/regression%20output%20table.csv") # this is a .csv with the all the attributes and levels
+
+
+
+flextable(dat_reg) %>% # this creates the table in word
+  align(part = "all") %>% # left align
+  set_caption(caption = "Rail Trail") %>% 
+  font(fontname = "Times New Roman", part = "all") %>% 
+  fontsize(size = 12, part = "body") %>% 
+  # add footer if you want
+  # add_footer_row(values = "* p < 0.05. ** p < 0.01. *** p < 0.001.", 
+  #                colwidths = 4) %>% 
+  theme_booktabs() %>% # default theme
+  autofit() %>% 
+  bg(i = c(1,3,5,7,9,11,13,15), bg = "#F7F7F7") %>% 
+  hline(i = 14)  %>% 
+  vline(j = c(1,2,3)) %>% 
+  align(align = "center", part = "header") %>% 
+  line_spacing(space = .5, part = "all")
+
+
+
+dat_wtp <- read.csv("https://raw.githubusercontent.com/ryangifford/discrete_choice_experiment/master/Data/regression%20output%20table%20wtp.csv") # this is a .csv with the all the attributes and levels
+
+
+
+flextable(dat_wtp) %>% # this creates the table in word
+  align(part = "all") %>% # left align
+  set_caption(caption = "Rail Trail") %>% 
+  font(fontname = "Times New Roman", part = "all") %>% 
+  fontsize(size = 12, part = "body") %>% 
+  # add footer if you want
+  # add_footer_row(values = "* p < 0.05. ** p < 0.01. *** p < 0.001.", 
+  #                colwidths = 4) %>% 
+  theme_booktabs() %>% # default theme
+  autofit() %>% 
+  bg(i = c(1,3,5,7,9), bg = "#F7F7F7") %>% 
+  hline(i = 8)  %>% 
+  vline(j = c(1,2,3)) %>% 
+  align(align = "center", part = "header") %>% 
+  line_spacing(space = .5, part = "all")
+
 ```

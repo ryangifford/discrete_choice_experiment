@@ -2,7 +2,7 @@
       name:  <unnamed>
        log:  C:\Users\Ryan\Desktop\Choice Experiment\discrete_choice_experiment\STATA\CEresult2.log
   log type:  text
- opened on:  11 Mar 2021, 11:19:32
+ opened on:  11 Mar 2021, 15:01:41
 
 .  insheet using "C:\Users\Ryan\Desktop\Choice Experiment\discrete_choice_experiment\Data\FinalDataStata.csv";
 (47 vars, 1,797 obs)
@@ -311,13 +311,13 @@ alternative_s:gravel_s     .23544856     .23900443
    WTP_Dists |   153.7032   305.8952     0.50   0.615    -445.8403    753.2467
 ------------------------------------------------------------------------------
 
-. matrix list r(table)
-> 
-> log close;
-matrix r(table) not found
+. nlcom WTP_Rail: - _b[rail_s] / _b[cost_s];
+
+[rail_s] not found
 r(111);
 
 end of do-file
 
 r(111);
 
+. exit, clear
